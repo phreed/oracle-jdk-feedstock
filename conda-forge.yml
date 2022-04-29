@@ -9,3 +9,5 @@ provider:
   win: github_actions
 github_actions:
   upload_packages: True
+upload_on_branch: main
+
