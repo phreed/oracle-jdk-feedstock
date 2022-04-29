@@ -13,9 +13,11 @@ Development: https://github.com/babeloff/oracle_jdk_boa
 
 Documentation: https://github.com/babeloff/oracle_jdk_boa
 
-This module provides a meta installer for the Oracle JDK.
+This module provides a dummy installer for the Oracle JDK.
+It does not install the Oracle JDK package.
+It adds the Oracle JDK into the specified Conda environment.
 It expects the appropriate Oracle JDK to have been previously acquired.
-It may be acquired from
+It may be acquired and installed from
 https://www.oracle.com/java/technologies/downloads/#java8-windows
 https://www.oracle.com/java/technologies/downloads/#java8-linux
 
