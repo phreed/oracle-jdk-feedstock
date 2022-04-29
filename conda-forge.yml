@@ -8,4 +8,4 @@ provider:
   linux: github_actions
   win: github_actions
 anaconda:
-  upload-packages: True
+  upload_packages: True
