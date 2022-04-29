@@ -7,5 +7,5 @@ provider:
   osx: github_actions
   linux: github_actions
   win: github_actions
-anaconda:
+github_actions:
   upload_packages: True
