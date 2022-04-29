@@ -19,12 +19,10 @@ requirements:
 
 test:
   commands:
-    - ls ${PREFIX}/conda-meso  # [linux]
     - test -d ${PREFIX}/bin  # [linux]
-    - test -d ${PREFIX}/conda-meso  # [linux]
-    - ls %PREFIX%\conda-meso  # [win]
+    - test -d ${PREFIX}/conda-meso/oracle-jdk-8.0_0  # [linux]
     - if exist %PREFIX%\bin  # [win]
-    - if exist %PREFIX%\conda-meso  # [win]
+    - if exist %PREFIX%\conda-meso\oracle-jdk-8.0_0  # [win]
 
 about:
   home: https://github.com/phreed/oracle-jdk-feedstock
