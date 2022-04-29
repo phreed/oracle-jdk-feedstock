@@ -19,13 +19,10 @@ requirements:
 
 test:
   commands:
-    - test ! -d ${PREFIX}/foo  # [linux]
-    - if not exist %PREFIX%\foo  # [win]
-
-#outputs:
-#  - name: '{{ name }}'
-#    - sel(linux): []
-#    - sel(win): []
+    - test -f ${PREFIX}/bin/java  # [linux]
+    - test -d ${PREFIX}/conda-meso/oracle-jdk-8.0_0  # [linux]
+    - if exist %PREFIX%\bin\java.exe  # [win]
+    - if exist %PREFIX%\conda-meso\oracle-jdk-8.0_0  # [win]
 
 about:
   home: https://github.com/babeloff/oracle_jdk_boa
@@ -33,9 +30,11 @@ about:
   license_file: LICENSE.txt
   summary: 'Meta-package for Oracle JDK'
   description: |
-    This module provides a meta installer for the Oracle JDK.
+    This module provides a dummy installer for the Oracle JDK.
+    It does not install the Oracle JDK package.
+    It adds the Oracle JDK into the specified Conda environment.
     It expects the appropriate Oracle JDK to have been previously acquired.
-    It may be acquired from 
+    It may be acquired and installed from 
     https://www.oracle.com/java/technologies/downloads/#java8-windows
     https://www.oracle.com/java/technologies/downloads/#java8-linux
   dev_url: https://github.com/babeloff/oracle_jdk_boa
