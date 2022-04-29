@@ -1,7 +1,7 @@
 About oracle-jdk
 ================
 
-Home: https://github.com/babeloff/oracle_jdk_boa
+Home: https://github.com/phreed/oracle-jdk-feedstock
 
 Package license: MIT
 
@@ -9,9 +9,9 @@ Feedstock license: [BSD-3-Clause](https://github.com/phreed/oracle-jdk-feedstock
 
 Summary: Meta-package for Oracle JDK
 
-Development: https://github.com/babeloff/oracle_jdk_boa
+Development: https://github.com/phreed/oracle-jdk-feedstock
 
-Documentation: https://github.com/babeloff/oracle_jdk_boa
+Documentation: https://github.com/phreed/oracle-jdk-feedstock
 
 This module provides a dummy installer for the Oracle JDK.
 It does not install the Oracle JDK package.
