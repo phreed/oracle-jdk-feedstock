@@ -19,10 +19,12 @@ requirements:
 
 test:
   commands:
-    - test -f ${PREFIX}/bin/java  # [linux]
-    - test -d ${PREFIX}/conda-meso/oracle-jdk-8.0_0  # [linux]
-    - if exist %PREFIX%\bin\java.exe  # [win]
-    - if exist %PREFIX%\conda-meso\oracle-jdk-8.0_0  # [win]
+    - ls ${PREFIX}  # [linux]
+    - test ! -f ${PREFIX}/bin/java  # [linux]
+    - test ! -d ${PREFIX}/conda-meso/oracle-jdk-8.0_0  # [linux]
+    - ls %PREFIX%  # [win]
+    - if not exist %PREFIX%\bin\java.exe  # [win]
+    - if not exist %PREFIX%\conda-meso\oracle-jdk-8.0_0  # [win]
 
 about:
   home: https://github.com/phreed/oracle-jdk-feedstock
