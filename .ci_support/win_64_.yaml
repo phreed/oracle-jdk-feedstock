@@ -1,0 +1,6 @@
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- mesomorph main
+target_platform:
+- win-64
