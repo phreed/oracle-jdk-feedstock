@@ -2,7 +2,7 @@ github:
   user_or_org: phreed
 channels:
   targets:
-    - [mesomorph, main]
+    - [mesomorph,main]
 provider:
   osx: github_actions
   linux: github_actions
