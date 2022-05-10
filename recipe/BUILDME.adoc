@@ -3,25 +3,25 @@
 Starting from link:https://github.com/phreed/my-conda-pkg-feedstock[the sample].
 There are other tutorials out there but `conda-smithy` is moving quickly.
 
-Note that this feedstock repository was constructed from the `./recipes/oracle-jdk` recipe directory.
+Note that this feedstock repository was constructed from the `./recipes/oracle-jdk-dummy` recipe directory.
 It was populated with an assortment of files including the file `recipe/meta.yaml`.
 [source,yaml]
 ----
-include::recipe/meta.yaml[]
+include::meta.yaml[]
 ----
 
-This is all that is needed to create this git repository `oracle-jdk-feedstock`.
+This is all that is needed to create this git repository `oracle-jdk-dummy-feedstock`.
 I do not want to contaminate the original repository so the init is performed
 from the directory containing the original `conda-forge` source.
 [source,cmd]
 ----
-mamba smithy init .\staged-recipes\recipes\oracle-jdk
+mamba smithy init .\staged-recipes\recipes\oracle-jdk-dummy
 ----
 
 Configure the upload channels.
 [source,yaml]
 ----
-include::conda-forge.yml[]
+include::../conda-forge.yml[]
 ----
 
 The feedstock needs to be registered with github.
@@ -29,25 +29,30 @@ The tokens should already be present in the `~/.conda-smithy` folder.
 
 [source,cmd]
 ----
-mamba smithy register-github --user phreed .\oracle-jdk-feedstock
+mamba smithy register-github --user phreed .\oracle-jdk-dummy-feedstock
 ----
 
 [source,cmd]
 ----
-mamba smithy register-ci --user phreed --without-drone --without-azure --without-appveyor --feedstock_directory .\oracle-jdk-feedstock
+mamba smithy register-ci --feedstock_directory . --user phreed --without-drone --without-azure --without-appveyor
+----
+
+[source,cmd]
+----
+mamba smithy  update-anaconda-token --feedstock_directory . --user phreed --without-azure --without-travis --without-circle --without-drone --without-appveyor
 ----
 
 Now build the scripts needed by the specified tooling.
 
 [source,cmd]
 ----
-mamba smithy rerender --feedstock_directory .\oracle-jdk-feedstock
+mamba smithy regenerate --feedstock_directory .\oracle-jdk-dummy-feedstock
 ----
 Finally, push the configured feedstock to github for building and deployment.
 
 [source,cmd]
 ----
-cd .\oracle-jdk-feedstock
+cd .\oracle-jdk-dummy-feedstock
 git commit -m ""
 git push upstream main
 ----

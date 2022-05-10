@@ -1,3 +1,12 @@
+#!/bin/bash -euo
+
+{
+  echo "Installing in ${CONDA_PREFIX}"
+  echo "  CONDA_PREFIX: ${CONDA_PREFIX}"
+  echo "  PKG_NAME:     ${PKG_NAME}"
+  echo "  PKG_VERSION:  ${PKG_VERSION}"
+  echo "  PKG_BUILDNUM: ${PKG_BUILDNUM}"
+} 
 
 # PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
@@ -22,3 +31,4 @@ echo "# JAVA_HOME=\"${ORACLE_JDK_DIR}\"" >> "${DEACTIVATE_SCRIPT}"
 echo "JAVA_HOME=${JAVA_HOME}" >> "${DEACTIVATE_SCRIPT}"
 # the post-link script should have set ORACLE_JDK_DIR
 export JAVA_HOME="${ORACLE_JDK_DIR}"
+exit 0

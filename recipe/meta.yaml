@@ -1,14 +1,13 @@
-{% set name = "oracle-jdk" %}
+# This feedstock wraps existing binary distributions.
+{% set name = "oracle-jdk-dummy" %}
 {% set version = "8.0" %}
 
 package:
   name: '{{ name|lower }}'
   version: '{{ version }}'
 
-source:
-  path: './src'
-
 build:
+  noarch: generic
   number: 0
 
 requirements:
@@ -18,14 +17,16 @@ requirements:
   run: []
 
 test:
+  requires:
+  files:
   commands:
     - test -d ${PREFIX}/bin  # [linux]
-    - test -d ${PREFIX}/conda-meso/oracle-jdk-8.0_0  # [linux]
+    - test -d ${PREFIX}/conda-meso/oracle-jdk-dummy-8.0_0  # [linux]
     - if exist %PREFIX%\bin  # [win]
-    - if exist %PREFIX%\conda-meso\oracle-jdk-8.0_0  # [win]
+    - if exist %PREFIX%\conda-meso\oracle-jdk-dummy-8.0_0  # [win]
 
 about:
-  home: https://github.com/phreed/oracle-jdk-feedstock
+  home: https://github.com/phreed/oracle-jdk-dummy-feedstock
   license: MIT
   license_file: LICENSE.txt
   summary: 'Meta-package for Oracle JDK'
@@ -37,8 +38,8 @@ about:
     It may be acquired and installed from 
     https://www.oracle.com/java/technologies/downloads/#java8-windows
     https://www.oracle.com/java/technologies/downloads/#java8-linux
-  dev_url: https://github.com/phreed/oracle-jdk-feedstock
-  doc_url: https://github.com/phreed/oracle-jdk-feedstock
+  dev_url: https://github.com/phreed/oracle-jdk-dummy-feedstock
+  doc_url: https://github.com/phreed/oracle-jdk-dummy-feedstock
 
 extra:
   recipe-maintainers:

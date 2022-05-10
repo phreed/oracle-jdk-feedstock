@@ -34,3 +34,4 @@ rem    echo:#!/bin/bash -euo > "!SH_SCRIPT!"
 rem     type "!SH_SCRIPT!"
 )
 if errorlevel 1 exit 1
+exit /B 0

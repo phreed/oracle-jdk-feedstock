@@ -3,7 +3,9 @@
 
 SetLocal EnableExtensions EnableDelayedExpansion
 
+set "MY_SELF=%~f0
 (
+    echo Starting %MY_SELF%
     echo Installing in %CONDA_PREFIX%
     echo    CONDA_PREFIX: %CONDA_PREFIX%
     echo    PKG_NAME:     %PKG_NAME%
