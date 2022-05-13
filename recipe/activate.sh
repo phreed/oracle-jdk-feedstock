@@ -90,8 +90,8 @@ for ix in "${SRC_BIN}"/*; do
   BASE_NAME=$(basename -- "${ix}")
   jx="${TGT_BIN}/${BASE_NAME}"
   if [[ -f  $jx ]] ; then
-    rm -f "$jx"
-    echo "link ${jx} is being overwritten"
+     rm -f "$jx"
+     echo "link ${jx} is being overwritten"
   fi
   ln "${ix}" "${jx}" || echo "failed creating link ${jx} to ${ix}"
   echo "# ln \"${ix}\" \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
