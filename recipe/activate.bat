@@ -71,14 +71,18 @@ echo Writing revert-script to %DEACTIVATE_SCRIPT%
 
 set "JDK8_HOME=%ORACLE_JDK_DIR%"
 set "JAVA_HOME=%JDK8_HOME%"
-set "PKG_BIN=%JDK8_HOME%\bin"
+set "SRC_BIN=%ORACLE_JDK_DIR%\bin"
+set "TGT_BIN=%CONDA_PREFIX%\bin"
 
-if not exist "%PKG_BIN%" mkdir "%PKG_BIN%"
-for /R "%ORACLE_JDK_DIR%\bin" %%G in (*.exe) do (
-  for %%H in (%PKG_BIN%\%%~nxG) do (
-      if not exist "%%H" (
-        mklink /H "%%H" "%%G" || echo failed linking "%%H" "%%G"
+if not exist "%TGT_BIN%" mkdir "%TGT_BIN%"
+for /R "%SRC_BIN%" %%G in (*.exe) do (
+  for %%H in (%TGT_BIN%\%%~nxG) do (
+      if exist "%%H" (
+        del "%%H"
+        echo link %%H is being overwritten
       )
+      mklink /H "%%H" "%%G" || echo failed creating link "%%H" to "%%G"
+      echo rem mklink /H "%%H" "%%G"  >> "%DEACTIVATE_SCRIPT%"
       echo del "%%H" >> "%DEACTIVATE_SCRIPT%"
   )
 )

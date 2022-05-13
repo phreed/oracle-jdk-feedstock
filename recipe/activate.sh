@@ -65,7 +65,7 @@ if [ ! -d "${ORACLE_JDK_DIR}" ]; then
       *) echo "unknown $OSTYPE" ;;
     esac
   }
-  return 0
+  return 0 2> /dev/null | exit 0
 fi
 
 DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"
@@ -80,19 +80,19 @@ END_OF_DEACTIVATE_SCRIPT
 export JDK8_HOME="${ORACLE_JDK_DIR}"
 export JAVA_HOME="${JDK8_HOME}"
 
-PKG_BIN="${JDK8_HOME}/bin"
+SRC_BIN="${ORACLE_JDK_DIR}/bin"
+TGT_BIN="${CONDA_PREFIX}/bin"
 
 echo "Preparing to link *.exe files, from ${ORACLE_JDK_DIR}."
 
-[ -d "${PKG_BIN}" ] || mkdir -p "${PKG_BIN}"
-for ix in "${ORACLE_JDK_DIR}"/bin/*; do
+[ -d "${TGT_BIN}" ] || mkdir -p "${TGT_BIN}"
+for ix in "${SRC_BIN}"/*; do
   BASE_NAME=$(basename -- "${ix}")
-  jx="${PKG_BIN}/${BASE_NAME}"
+  jx="${TGT_BIN}/${BASE_NAME}"
   if [ -f  "$jx" ] ; then
     rm "$jx"
     echo "link ${jx} is being overwritten"
   fi
-
   ln "${ix}" "${jx}" || echo "failed creating link ${jx} to ${ix}"
   echo "# ln \"${ix}\" \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
   echo "rm \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
@@ -115,4 +115,4 @@ EOF_DUMMY_CONF
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/oracle-jdk-dummy.conf"
 echo "Activation complete"
 
-return 0
+return 0 2> /dev/null | exit 0
