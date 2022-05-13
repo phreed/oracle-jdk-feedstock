@@ -38,21 +38,20 @@ The problem is that those environment variables are defined at packaging-time.
 Again, the previously defined variables need to be retained in the ``activate`` script and restored in de`activate`.
 
 
-The `post-link` : `pre-unlink` and `activate`: `deactivate` pairs need to share information. 
+The `post-link` : `pre-unlink` and `activate`: `deactivate` pairs need to share information.
 
-The `post-link`, and `activate` scripts may write simple helper scripts which 
+The `post-link`, and `activate` scripts may write simple helper scripts which
 may be called by `pre-unlink`, and `deactivate` to revert what they did.
 Similarly, the `post-link` script determines the path to the installed software being wrapped.
-This can be done via discovery or download. 
+This can be done via discovery or download.
 The discovered path will be needed by the `activate` script.
 These files need to be place in something like the **conda-meta** folder but distinct.
 To that end I created a **conda-meso** folder.
 
 ```
 set "CONDA_MESO=%CONDA_PREFIX%\conda-meso\%PKG_NAME%-%PKG_VERSION%_%PKG_BUILDNUM%"
-set "DISCOVERY_SCRIPT=%CONDA_MESO%\discovery.bat"
-set "UNLINK_SCRIPT=%CONDA_MESO%\unlink-aux.bat"
-set "DEACTIVATE_SCRIPT=%CONDA_MESO%\deactivate-aux.bat`
+set "UNLINK_SCRIPT=%CONDA_MESO%\unlink.bat"
+set "DEACTIVATE_SCRIPT=%CONDA_MESO%\deactivate.bat`
 ```
 
 n.b. similar scripts would be written by `post-link`.sh and `activate`.sh.

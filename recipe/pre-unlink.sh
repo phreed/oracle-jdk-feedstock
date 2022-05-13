@@ -1,14 +1,26 @@
 #!/bin/bash -euo
 
+MY_SELF=$(basename "0")
+cat - << SHOW_IMPORTANT_ENV_VARIABLES > "${CONDA_PREFIX}/.messages.txt"
+Starting ${MY_SELF}
+Installing in ${CONDA_PREFIX}
+  CONDA_PREFIX: ${CONDA_PREFIX}
+  PKG_NAME:     ${PKG_NAME}
+  PKG_VERSION:  ${PKG_VERSION}
+  PKG_BUILDNUM: ${PKG_BUILDNUM}
+SHOW_IMPORTANT_ENV_VARIABLES
+
+PKG_BIN="${CONDA_PREFIX}/bin"
 PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
+
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
+[ -d "%CONDA_MESO%" ] || mkdir -p "${CONDA_MESO}"
 
-UNLINK_SCRIPT="${CONDA_MESO}/unlink-aux.sh"
+cat - << SHOW_IMPORTANT_ENV_VARIABLES >> "${CONDA_PREFIX}/.messages.txt"
+Finishing ${MY_SELF}
+  PKG_BIN: ${PKG_BIN}
+  PKG_UUID:     ${PKG_UUID}
+  CONDA_MESO:  ${CONDA_MESO}
+SHOW_IMPORTANT_ENV_VARIABLES
 
-if [ -f "${UNLINK_SCRIPT}" ]; then
-  echo "evaluating ${UNLINK_SCRIPT}" >> "${CONDA_PREFIX}/.messages.txt"
-  source "${UNLINK_SCRIPT}"
-  rm "${UNLINK_SCRIPT}"
-else
-  echo "could not find ${UNLINK_SCRIPT}" >> "${CONDA_PREFIX}/.messages.txt"
-fi
+return 0

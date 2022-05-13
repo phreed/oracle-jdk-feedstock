@@ -43,7 +43,7 @@ if [ -z "$CONFIG" ]; then
         CONFIGS="${CONFIGS}'${file:12:-5}' or ";
     done
     echo "Need to set CONFIG env variable. Value can be one of ${CONFIGS:0:-4}"
-    exit 1
+    return 1
 fi
 
 if [ -z "${DOCKER_IMAGE}" ]; then
