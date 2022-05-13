@@ -87,4 +87,20 @@ for /R "%SRC_BIN%" %%G in (*.exe) do (
   )
 )
 
+
+set "FORWARD_SLASHED_PREFIX=%CONDA_PREFIX:\=/%"
+if not exist "%CONDA_PREFIX%\Library" mkdir "%CONDA_PREFIX%\Library"
+if not exist "%CONDA_PREFIX%\Library\bin" mkdir "%CONDA_PREFIX%\Library\bin"
+(
+    echo [Paths]
+    echo Prefix = %FORWARD_SLASHED_PREFIX%/Library
+    echo Binaries = %FORWARD_SLASHED_PREFIX%/Library/bin
+    echo Libraries = %FORWARD_SLASHED_PREFIX%/Library/lib
+    echo Headers = %FORWARD_SLASHED_PREFIX%/Library/include
+    echo TargetSpec = win32-msvc
+    echo HostSpec = win32-msvc
+) > "%CONDA_PREFIX%\Library\bin\oracle-jdk-dummy.conf"
+rem Some things go looking in the prefix root (pyqt, for example)
+copy "%CONDA_PREFIX%\Library\bin\oracle-jdk-dummy.conf" "%CONDA_PREFIX%\oracle-jdk-dummy.conf"
+
 exit /B 0
