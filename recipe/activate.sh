@@ -90,7 +90,7 @@ for ix in "${SRC_BIN}"/*; do
   BASE_NAME=$(basename -- "${ix}")
   jx="${TGT_BIN}/${BASE_NAME}"
   if [[ -f  $jx ]] ; then
-    rm "$jx"
+    rm -f "$jx"
     echo "link ${jx} is being overwritten"
   fi
   ln "${ix}" "${jx}" || echo "failed creating link ${jx} to ${ix}"
@@ -114,7 +114,7 @@ EOF_DUMMY_CONF
 
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/oracle-jdk-dummy.conf"
 echo "rm \"${DUMMY_CONF}\"" >> "${DEACTIVATE_SCRIPT}"
-echo "rm \"${${CONDA_PREFIX}/oracle-jdk-dummy.conf}\"" >> "${DEACTIVATE_SCRIPT}"
+echo "rm \"${CONDA_PREFIX}/oracle-jdk-dummy.conf\"}" >> "${DEACTIVATE_SCRIPT}"
 
 echo "Activation complete"
 true
