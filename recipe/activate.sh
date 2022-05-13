@@ -33,7 +33,7 @@ Activating in ${CONDA_PREFIX}
    CONDA_PATH_CONFLICT   : ${CONDA_PATH_CONFLICT}
 SHOW_IMPORTANT_ENV_VARIABLES
 
-[[ -d ${CONDA_MESO} ]] || mkdir -p "${CONDA_MESO}"
+[[ -d $CONDA_MESO ]] || mkdir -p "${CONDA_MESO}"
 
 # Discovery
 WIP=0
