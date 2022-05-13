@@ -113,6 +113,8 @@ HostSpec = linux64
 EOF_DUMMY_CONF
 
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/oracle-jdk-dummy.conf"
-echo "Activation complete"
+echo "rm \"${DUMMY_CONF}\"" >> "${DEACTIVATE_SCRIPT}"
+echo "rm \"${${CONDA_PREFIX}/oracle-jdk-dummy.conf}\"" >> "${DEACTIVATE_SCRIPT}"
 
+echo "Activation complete"
 true
