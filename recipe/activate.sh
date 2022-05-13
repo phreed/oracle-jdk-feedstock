@@ -31,7 +31,7 @@ Activating in ${CONDA_PREFIX}
    CONDA_PATH_CONFLICT   : ${CONDA_PATH_CONFLICT}
 SHOW_IMPORTANT_ENV_VARIABLES
 
-[ -d "${CONDA_MESO}" ] || mkdir -p "${CONDA_MESO}"
+[[ -d "${CONDA_MESO}" ]] || mkdir -p "${CONDA_MESO}"
 
 # Discovery
 WIP=0
@@ -47,7 +47,7 @@ for gx in /usr/java/jdk1.8.0_*; do
 done
 
 echo "Oracle JDK directory = ${ORACLE_JDK_DIR}"
-if [ ! -d "${ORACLE_JDK_DIR}" ]; then
+if [[ ! -d "${ORACLE_JDK_DIR}" ]]; then
   echo "The target JDK version has not been installed. ${ORACLE_JDK_DIR}";
   case "$OSTYPE" in
     darwin*)
@@ -60,7 +60,7 @@ if [ ! -d "${ORACLE_JDK_DIR}" ]; then
       ;;
     msys*)
       echo "see https://www.oracle.com/java/technologies/downloads/#java8-windows"
-      echo " "
+      echo " jdk-8u333-windows-x64.exe"
       ;;
     *) echo "unknown $OSTYPE" ;;
   esac
@@ -84,11 +84,11 @@ TGT_BIN="${CONDA_PREFIX}/bin"
 
 echo "Preparing to link *.exe files, from ${ORACLE_JDK_DIR}."
 
-[ -d "${TGT_BIN}" ] || mkdir -p "${TGT_BIN}"
+[[ -d "${TGT_BIN}" ]] || mkdir -p "${TGT_BIN}"
 for ix in "${SRC_BIN}"/*; do
   BASE_NAME=$(basename -- "${ix}")
   jx="${TGT_BIN}/${BASE_NAME}"
-  if [ -f  "$jx" ] ; then
+  if [[ -f  "$jx" ]] ; then
     rm "$jx"
     echo "link ${jx} is being overwritten"
   fi
@@ -98,7 +98,7 @@ for ix in "${SRC_BIN}"/*; do
 done
 
 
-[ -d "${CONDA_PREFIX}/Library/bin" ] || mkdir -p "${CONDA_PREFIX}/Library/bin"
+[[ -d "${CONDA_PREFIX}/Library/bin" ]] || mkdir -p "${CONDA_PREFIX}/Library/bin"
 DUMMY_CONF="${CONDA_PREFIX}/Library/bin/oracle-jdk-dummy.conf"
 echo "Writing oracle-jdk-dummy.conf to ${DUMMY_CONF}"
 cat - <<EOF_DUMMY_CONF > "${DUMMY_CONF}"
