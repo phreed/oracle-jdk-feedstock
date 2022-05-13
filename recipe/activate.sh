@@ -1,5 +1,7 @@
 # header is written by build.sh or bld.bat
 
+# `activate.sh` is run as `source activate` so `exit` cannot be used.
+
 PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
 
@@ -75,6 +77,7 @@ cat - << END_OF_DEACTIVATE_SCRIPT > "${DEACTIVATE_SCRIPT}"
 export ORACLE_JDK_DIR="${ORACLE_JDK_DIR}"
 export JDK8_HOME="${JDK8_HOME}"
 export JAVA_HOME="${JAVA_HOME}"
+
 END_OF_DEACTIVATE_SCRIPT
 
 export JDK8_HOME="${ORACLE_JDK_DIR}"
@@ -86,6 +89,7 @@ TGT_BIN="${CONDA_PREFIX}/bin"
 echo "Preparing to link *.exe files, from ${ORACLE_JDK_DIR}."
 
 [[ -d ${TGT_BIN} ]] || mkdir -p "${TGT_BIN}"
+echo "# linking from ${SRC_BIN}" >> "${DEACTIVATE_SCRIPT}"
 for ix in "${SRC_BIN}"/*; do
   BASE_NAME=$(basename -- "${ix}")
   jx="${TGT_BIN}/${BASE_NAME}"
@@ -94,8 +98,7 @@ for ix in "${SRC_BIN}"/*; do
      echo "link ${jx} is being overwritten"
   fi
   ln "${ix}" "${jx}" || echo "failed creating link ${jx} to ${ix}"
-  echo "# ln \"${ix}\" \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
-  echo "rm \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
+  echo "rm -f \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
 done
 
 TGT_BIN_LIB="${CONDA_PREFIX}/Library/bin"
@@ -114,7 +117,7 @@ EOF_DUMMY_CONF
 
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/oracle-jdk-dummy.conf"
 echo "rm \"${DUMMY_CONF}\"" >> "${DEACTIVATE_SCRIPT}"
-echo "rm \"${CONDA_PREFIX}/oracle-jdk-dummy.conf\"}" >> "${DEACTIVATE_SCRIPT}"
+echo "rm \"${CONDA_PREFIX}/oracle-jdk-dummy.conf\"" >> "${DEACTIVATE_SCRIPT}"
 
 echo "Activation complete"
 true
