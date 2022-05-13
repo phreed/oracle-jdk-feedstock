@@ -20,4 +20,4 @@ END_OF_MESSAGE
 
 done
 
-return 0 2> /dev/null | exit 0
+return 0 || exit 0

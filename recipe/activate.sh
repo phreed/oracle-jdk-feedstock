@@ -36,10 +36,11 @@ SHOW_IMPORTANT_ENV_VARIABLES
 # Discovery
 WIP=0
 for gx in /usr/java/jdk1.8.0_*; do
+  echo "jdk candidate ${gx}"
   BASE_NAME=$(basename -- "${gx}")
   BACK=${BASE_NAME##jdk1.8.0_}
   REVISION=${BACK%-*}
-  if [ "$REVISION" -gt "$WIP" ]; then
+  if [[ "$REVISION" -gt "$WIP" ]]; then
     WIP=$REVISION
     export ORACLE_JDK_DIR="$gx"
   fi
@@ -47,25 +48,23 @@ done
 
 echo "Oracle JDK directory = ${ORACLE_JDK_DIR}"
 if [ ! -d "${ORACLE_JDK_DIR}" ]; then
-  {
-    echo "The target JDK version has not been installed. ${ORACLE_JDK_DIR}";
-    case "$OSTYPE" in
-      darwin*)
-        echo "see https://www.oracle.com/java/technologies/downloads/#java8-mac"
-        echo " jdk-8u333-macosx-x64.dmg"
-        ;;
-      linux*)
-        echo "see https://www.oracle.com/java/technologies/downloads/#java8-linux"
-        echo " jdk-8u333-linux-x64.rpm"
-        ;;
-      msys*)
-        echo "see https://www.oracle.com/java/technologies/downloads/#java8-windows"
-        echo " "
-        ;;
-      *) echo "unknown $OSTYPE" ;;
-    esac
-  }
-  return 0 2> /dev/null | exit 0
+  echo "The target JDK version has not been installed. ${ORACLE_JDK_DIR}";
+  case "$OSTYPE" in
+    darwin*)
+      echo "see https://www.oracle.com/java/technologies/downloads/#java8-mac"
+      echo " jdk-8u333-macosx-x64.dmg"
+      ;;
+    linux*)
+      echo "see https://www.oracle.com/java/technologies/downloads/#java8-linux"
+      echo " jdk-8u333-linux-x64.rpm"
+      ;;
+    msys*)
+      echo "see https://www.oracle.com/java/technologies/downloads/#java8-windows"
+      echo " "
+      ;;
+    *) echo "unknown $OSTYPE" ;;
+  esac
+  return 0 || exit 0
 fi
 
 DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"
@@ -115,4 +114,4 @@ EOF_DUMMY_CONF
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/oracle-jdk-dummy.conf"
 echo "Activation complete"
 
-return 0 2> /dev/null | exit 0
+return 0 || exit 0
