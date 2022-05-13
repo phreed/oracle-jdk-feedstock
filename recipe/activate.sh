@@ -64,7 +64,8 @@ if [[ ! -d ${ORACLE_JDK_DIR} ]]; then
       ;;
     *) echo "unknown $OSTYPE" ;;
   esac
-  return 0 || exit 0
+  true
+  return
 fi
 
 DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"
@@ -114,4 +115,4 @@ EOF_DUMMY_CONF
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/oracle-jdk-dummy.conf"
 echo "Activation complete"
 
-return 0 || exit 0
+true
